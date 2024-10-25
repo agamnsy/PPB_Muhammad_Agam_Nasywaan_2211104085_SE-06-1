@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Mypackage extends StatelessWidget {
+class Mypackage extends StatefulWidget {
   const Mypackage({super.key});
 
   @override
+  _MypackageState createState() => _MypackageState();
+}
+
+class _MypackageState extends State<Mypackage> {
+  // const Mypackage({super.key});
+
+  @override
   Widget build(BuildContext context) {
+    String? selectedValue;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -46,7 +55,26 @@ class Mypackage extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            TextButton(onPressed: () {}, child: const Text('Text Button'))
+            TextButton(onPressed: () {}, child: const Text('Text Button')),
+            const SizedBox(
+              height: 32,
+            ),
+            DropdownButton<String>(
+              value: selectedValue,
+              hint: const Text('Pilih Opsi'),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedValue = newValue;
+                });
+              },
+              items: <String>['Opsi 1', 'Opsi 2', 'Opsi 3']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            )
           ],
         ),
       ),
